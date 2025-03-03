@@ -15,9 +15,12 @@ package frc.robot.subsystems.drive;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
+
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public class DriveConstants {
@@ -41,17 +44,18 @@ public class DriveConstants {
   public static final Rotation2d backRightZeroRotation = new Rotation2d(0.0);
 
   // Device CAN IDs
+  // NOTE: These are the CAN IDs for the 2025 robot
   public static final int pigeonCanId = 9;
 
-  public static final int frontLeftDriveCanId = 1;
-  public static final int backLeftDriveCanId = 3;
-  public static final int frontRightDriveCanId = 5;
-  public static final int backRightDriveCanId = 7;
+  public static final int frontLeftDriveCanId = 19; //Green
+  public static final int backLeftDriveCanId = 18; //Black
+  public static final int frontRightDriveCanId = 15; //Red
+  public static final int backRightDriveCanId = 14;//Blue
 
-  public static final int frontLeftTurnCanId = 2;
-  public static final int backLeftTurnCanId = 4;
-  public static final int frontRightTurnCanId = 6;
-  public static final int backRightTurnCanId = 8;
+  public static final int frontLeftTurnCanId = 17;
+  public static final int backLeftTurnCanId = 16;
+  public static final int frontRightTurnCanId = 20; //PDH port 0
+  public static final int backRightTurnCanId = 1;
 
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
@@ -96,8 +100,9 @@ public class DriveConstants {
   public static final double turnPIDMaxInput = 2 * Math.PI; // Radians
 
   // PathPlanner configuration
-  public static final double robotMassKg = 74.088;
-  public static final double robotMOI = 6.883;
+  public static final double robotMassLbs = 115;
+  public static final double robotMassKg = (robotMassLbs * 0.45359237);
+  public static final double robotMOI = 6.883 ;
   public static final double wheelCOF = 1.2;
   public static final RobotConfig ppConfig =
       new RobotConfig(
@@ -111,4 +116,54 @@ public class DriveConstants {
               driveMotorCurrentLimit,
               1),
           moduleTranslations);
+
+// Added from 2025 Alpha code KLJ
+public static final class OIConstants {
+    public static final int kDriverControllerPort0 = 0;
+    public static final int kDriverControllerPort1 = 1;
+    public static final int kDriverControllerPort2 = 2;
+    public static final double kDriveDeadband = 0.1;
+  }
+
+  public static final class AutoConstants {
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+    public static final double kPXController = 1;
+    public static final double kPYController = 1;
+    public static final double kPThetaController = 1;
+
+    // Constraint for the motion profiled robot angle controller
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
+        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
+
+  public static final class VortexMotorConstants {
+    public static final double kFreeSpeedRpm = 6784;
+  }
+
+  public static final class MotorConstants {
+    public static final int AmpLimit550 = 20;
+    public static final int AmpLimitNeo = 50;
+    public static final int AmplLimitVortex = 80;
+  }
+
+  public static final class ElevatorConstants {
+    public static final int ElevatorCanID = 4;
+    public static final double ElevatorSpeed = .3;
+  }
+
+  public static final class ClimberConstants {
+    public static final int FrontClimbCanID = 2;
+    public static final int BackClimbCanID = 3;
+    public static final double ClimbSpeed = 0.4;
+  }
+
+  public static final class PivotConstants {
+    public static final int PivotCanID = 13;
+    public static final double PivotSpeed = .15;
+    public static final double PivotMaxSpeed = .6;
+  }
 }
