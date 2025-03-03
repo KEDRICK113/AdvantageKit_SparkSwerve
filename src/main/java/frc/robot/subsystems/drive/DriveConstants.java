@@ -15,8 +15,6 @@ package frc.robot.subsystems.drive;
 
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
-
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -26,7 +24,7 @@ import edu.wpi.first.math.util.Units;
 public class DriveConstants {
   public static final double maxSpeedMetersPerSec = 4.8;
   public static final double odometryFrequency = 100.0; // Hz
-  public static final double trackWidth = Units.inchesToMeters(24.5);
+  public static final double trackWidth = Units.inchesToMeters(24.);
   public static final double wheelBase = Units.inchesToMeters(28);
   public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
   public static final Translation2d[] moduleTranslations =
@@ -47,14 +45,14 @@ public class DriveConstants {
   // NOTE: These are the CAN IDs for the 2025 robot
   public static final int pigeonCanId = 9;
 
-  public static final int frontLeftDriveCanId = 19; //Green
-  public static final int backLeftDriveCanId = 18; //Black
-  public static final int frontRightDriveCanId = 15; //Red
-  public static final int backRightDriveCanId = 14;//Blue
+  public static final int frontLeftDriveCanId = 19; // Green
+  public static final int backLeftDriveCanId = 18; // Black
+  public static final int frontRightDriveCanId = 15; // Red
+  public static final int backRightDriveCanId = 14; // Blue
 
   public static final int frontLeftTurnCanId = 17;
   public static final int backLeftTurnCanId = 16;
-  public static final int frontRightTurnCanId = 20; //PDH port 0
+  public static final int frontRightTurnCanId = 20; // PDH port 0
   public static final int backRightTurnCanId = 1;
 
   // Drive motor configuration
@@ -102,7 +100,7 @@ public class DriveConstants {
   // PathPlanner configuration
   public static final double robotMassLbs = 115;
   public static final double robotMassKg = (robotMassLbs * 0.45359237);
-  public static final double robotMOI = 6.883 ;
+  public static final double robotMOI = 6.883;
   public static final double wheelCOF = 1.2;
   public static final RobotConfig ppConfig =
       new RobotConfig(
@@ -117,8 +115,8 @@ public class DriveConstants {
               1),
           moduleTranslations);
 
-// Added from 2025 Alpha code KLJ
-public static final class OIConstants {
+  // Added from 2025 Alpha code KLJ
+  public static final class OIConstants {
     public static final int kDriverControllerPort0 = 0;
     public static final int kDriverControllerPort1 = 1;
     public static final int kDriverControllerPort2 = 2;
@@ -136,8 +134,9 @@ public static final class OIConstants {
     public static final double kPThetaController = 1;
 
     // Constraint for the motion profiled robot angle controller
-    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
-        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+        new TrapezoidProfile.Constraints(
+            kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
 
   public static final class VortexMotorConstants {

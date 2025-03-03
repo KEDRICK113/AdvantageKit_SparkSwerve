@@ -46,23 +46,22 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    
+
   // Subsystems
   private final Drive drive;
   // The robot's subsystems and commands are defined here...
   private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
- /// private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  /// private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final PivotSubsystem m_PivotSubsystem = new PivotSubsystem();
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
-
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
-Joystick m_Joystick0 = new Joystick(OIConstants.kDriverControllerPort0);
+  Joystick m_Joystick0 = new Joystick(OIConstants.kDriverControllerPort0);
   Joystick m_Joystick1 = new Joystick(OIConstants.kDriverControllerPort1);
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
-    SendableChooser<Command> m_chooser = new SendableChooser();
+  SendableChooser<Command> m_chooser = new SendableChooser();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -163,29 +162,35 @@ Joystick m_Joystick0 = new Joystick(OIConstants.kDriverControllerPort0);
                     drive)
                 .ignoringDisable(true));
 
-
- // new JoystickButton(m_Joystick1, 2)
+    // new JoystickButton(m_Joystick1, 2)
     //     .whileTrue(new RunCommand(
     //         () -> m_robotDrive.setX(),
     //         m_robotDrive));
 
     final JoystickButton ElevatorUp = new JoystickButton(m_Joystick1, 4);
-    ElevatorUp.whileTrue(new ElevatorCommand(ElevatorConstants.ElevatorSpeed, m_ElevatorSubsystem)).onFalse(new ElevatorCommand(0, m_ElevatorSubsystem));
+    ElevatorUp.whileTrue(new ElevatorCommand(ElevatorConstants.ElevatorSpeed, m_ElevatorSubsystem))
+        .onFalse(new ElevatorCommand(0, m_ElevatorSubsystem));
 
     final JoystickButton ElevatorDown = new JoystickButton(m_Joystick1, 3);
-    ElevatorDown.whileTrue(new ElevatorCommand(-1 * ElevatorConstants.ElevatorSpeed / 2, m_ElevatorSubsystem)).onFalse(new ElevatorCommand(0, m_ElevatorSubsystem));
+    ElevatorDown.whileTrue(
+            new ElevatorCommand(-1 * ElevatorConstants.ElevatorSpeed / 2, m_ElevatorSubsystem))
+        .onFalse(new ElevatorCommand(0, m_ElevatorSubsystem));
 
-    final JoystickButton Climb = new JoystickButton(m_Joystick0, 11); //lowers arms
-    Climb.whileTrue(m_ClimberSubsystem.climberCommand(ClimberConstants.ClimbSpeed * -1)).whileFalse(new ClimberSubsystem().climberCommand(0));
+    final JoystickButton Climb = new JoystickButton(m_Joystick0, 11); // lowers arms
+    Climb.whileTrue(m_ClimberSubsystem.climberCommand(ClimberConstants.ClimbSpeed * -1))
+        .whileFalse(new ClimberSubsystem().climberCommand(0));
 
-    final JoystickButton ClimbReverse = new JoystickButton(m_Joystick1, 11); //Raises arm
-    ClimbReverse.whileTrue(m_ClimberSubsystem.climberCommand(ClimberConstants.ClimbSpeed)).whileFalse(m_ClimberSubsystem.climberCommand(0));
+    final JoystickButton ClimbReverse = new JoystickButton(m_Joystick1, 11); // Raises arm
+    ClimbReverse.whileTrue(m_ClimberSubsystem.climberCommand(ClimberConstants.ClimbSpeed))
+        .whileFalse(m_ClimberSubsystem.climberCommand(0));
 
     final JoystickButton PivotUp = new JoystickButton(m_Joystick0, 4);
-    PivotUp.whileTrue(m_PivotSubsystem.pivotCommand(PivotConstants.PivotSpeed)).whileFalse(new PivotSubsystem().pivotCommand(0));
+    PivotUp.whileTrue(m_PivotSubsystem.pivotCommand(PivotConstants.PivotSpeed))
+        .whileFalse(new PivotSubsystem().pivotCommand(0));
 
     final JoystickButton PivotDown = new JoystickButton(m_Joystick0, 3);
-    PivotDown.whileTrue(m_PivotSubsystem.pivotCommand(PivotConstants.PivotSpeed * -1)).whileFalse(new PivotSubsystem().pivotCommand(0));
+    PivotDown.whileTrue(m_PivotSubsystem.pivotCommand(PivotConstants.PivotSpeed * -1))
+        .whileFalse(new PivotSubsystem().pivotCommand(0));
 
     /*final JoystickButton ElevatorStart = new JoystickButton(m_Joystick1, 3);
     ElevatorStart.onTrue(new ElevatorPIDCommand(m_ElevatorSubsystem, 0));
@@ -205,10 +210,6 @@ Joystick m_Joystick0 = new Joystick(OIConstants.kDriverControllerPort0);
 
   private Command NoAuto;
 
-
-
-  
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -217,5 +218,4 @@ Joystick m_Joystick0 = new Joystick(OIConstants.kDriverControllerPort0);
   public Command getAutonomousCommand() {
     return autoChooser.get();
   }
-
 }

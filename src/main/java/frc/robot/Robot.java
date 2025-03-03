@@ -82,9 +82,9 @@ public class Robot extends LoggedRobot {
     // Start AdvantageKit logger
     Logger.start();
 
-    //aded from 2025 Alpha code KLJ
+    // aded from 2025 Alpha code KLJ
     DataLogManager.start();
-    DriverStation.startDataLog(DataLogManager.getLog(), true); 
+    DriverStation.startDataLog(DataLogManager.getLog(), true);
 
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our autonomous chooser on the dashboard.
